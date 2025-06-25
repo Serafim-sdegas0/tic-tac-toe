@@ -1,18 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
   return (
-          <><p>
+    <>
       Hello World.
-    </p><a
-      className="App-link"
-      href="https://reactjs.org"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      </a></>
+      {
+        numbers.map((num) => (
+          <>{num}</>
+        ))
+      }
+    </>
   );
 }
 
