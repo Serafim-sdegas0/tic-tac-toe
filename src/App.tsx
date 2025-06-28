@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+
+type buttonState = {
+  num: Number,
+  isSelected: Boolean
+}
 
 function App() {
 
-  const numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const [buttonStates, setButtonStates] = useState<buttonState[]>([
+    { num: 0, isSelected: false },
+    { num: 1, isSelected: false },
+    { num: 2, isSelected: false },
+    { num: 3, isSelected: false },
+    { num: 4, isSelected: false },
+    { num: 5, isSelected: false },
+    { num: 6, isSelected: false },
+    { num: 7, isSelected: false },
+    { num: 8, isSelected: false },
+  ]);
 
+  const handleClick = (num: Number) => {
+    const updated = buttonStates.map((bs) =>
+      bs.num === num ? { ...bs, isSelected: true } : bs
+    );
+    setButtonStates(updated);
+
+  }
   return (
     <div style={styles.board}>
       {
-        numbers.map((num) => (
-          <button style={styles.square} key={num}>{num}</button>
+        buttonStates.map((bs) => (
+          <button style={styles.square} key={bs.num.toString()} onClick={() => handleClick(bs.num)} >{bs.isSelected ? "yes" : "no"}</button>
         ))
       }
     </div>
