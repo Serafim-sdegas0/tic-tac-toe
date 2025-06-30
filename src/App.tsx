@@ -3,35 +3,28 @@ import './App.css';
 
 type buttonState = {
   num: Number,
-  isSelected: Boolean
+   symbol: string;
 }
 
 function App() {
 
-  const [buttonStates, setButtonStates] = useState<buttonState[]>([
-    { num: 0, isSelected: false },
-    { num: 1, isSelected: false },
-    { num: 2, isSelected: false },
-    { num: 3, isSelected: false },
-    { num: 4, isSelected: false },
-    { num: 5, isSelected: false },
-    { num: 6, isSelected: false },
-    { num: 7, isSelected: false },
-    { num: 8, isSelected: false },
-  ]);
-
+  const [buttonStates, setButtonStates] = useState<buttonState[]>
+  (Array.from({ length: 9 }, (_, i) => ({ num: i, symbol: '' }))
+  );
+   const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>('X');
+   
   const handleClick = (num: Number) => {
     const updated = buttonStates.map((bs) =>
-      bs.num === num ? { ...bs, isSelected: true } : bs
+      bs.num === num ? { ...bs, isSelected: true,symbol: currentPlayer } : bs
     );
     setButtonStates(updated);
-
+    setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
   }
   return (
     <div style={styles.board}>
       {
         buttonStates.map((bs) => (
-          <button style={styles.square} key={bs.num.toString()} onClick={() => handleClick(bs.num)} >{bs.isSelected ? "yes" : "no"}</button>
+          <button style={styles.square} key={bs.num.toString()} onClick={() => handleClick(bs.num)} >{bs.symbol}</button>
         ))
       }
     </div>
@@ -53,4 +46,14 @@ const styles = {
     cursor: 'pointer',
   },
 };
+export const winCombinations =[
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+]
 export default App;
