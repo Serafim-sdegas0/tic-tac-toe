@@ -2,8 +2,8 @@ import { useState } from 'react';
 import './App.css';
 
 type buttonState = {
-  num: Number,
-  symbol : string
+  num: Number;
+  symbol: string;
 }
 
 function App() {
@@ -14,9 +14,14 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>('X');
 
   const handleClick = (num: Number) => {
+    const square = buttonStates.find(bs => bs.num === num);
+    if (square?.symbol) return;
+
     const updated = buttonStates.map((bs) =>
       bs.num === num ? { ...bs, isSelected: true, symbol: currentPlayer } : bs
     );
+
+    
     setButtonStates(updated);
     setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
   }
